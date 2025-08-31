@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录界面</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1> 欢迎使用轮盘转项目 </h1>
+  <div class="login-container">
+    <h2>登录</h2>
+    <form class="login-form">
+      <!-- for 属性 ： 用于指定标签与哪个表单元素相关联，
+      当点击标签时，会自动将焦点切换到相关的表单元素上 -->
+      <div class="form-item">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+      </div>
+      <div class="form-item">
+        <label for="password">密码：</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码" required>
+      </div>
+      <div class="form-item">
+        <button type="button" class="login-btn">登录</button>
+      </div>
+    </form>
+  </div>
+  <script type="module">
+    import { RequestLogin } from './request.js'
+
+    const loginBtn = document.querySelector('.login-btn');
+    loginBtn.addEventListener('click', () => {
+      const username = document.querySelector('#username').value;
+      const password = document.querySelector('#password').value;
+      if (username === '' || password === '') {
+        alert('请输入用户名和密码');
+        return;
+      }
+      // 登录请求
+      RequestLogin(username, password).then(res => {
+        if(res){
+          window.location.href = 'roulette_wheel.html'
+        }
+        else{
+          alert('登录失败')
+        }
+      })
+    })
+
+  </script>
+</body>
+<style>
+  h1 {
+    font-size: 40px;
+    margin-top: 50px;
+    text-align: center;
+  }
+  .login-container {
+    width: 800px;
+    height: 500px;
+    border: 3px solid skyblue;
+    border-radius: 5%;
+    background-color: #f9f9f9;
+    margin: 200px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    h2 {
+      margin: 50px;
+      font-size: 30px;
+    }
+    .form-item {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      label {
+        width: 100px;
+        text-align: right;
+      }
+      input {
+        width: 300px;
+        height: 30px;
+        font-size: 20px;
+        padding-left: 10px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        &:focus {
+          outline: none;
+          border: 2px solid skyblue;
+        }
+      }
+      button {
+        width: 100px;
+        height: 40px;
+        font-size: 20px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        &:hover {
+          background-color: skyblue;
+        }
+      }
+    }
+
+  }
+
+</style>
+</html>
