@@ -1,3 +1,4 @@
+const axios = require('axios')
 
 const request = axios.create({
   baseURL: 'http://localhost:3000',
@@ -81,8 +82,6 @@ const RequestLogin = async(username, password) => {
     return false
   }
 }
-
-
 
 export { RequestHistoryName, RequestWriteData, RequestDeleteData, RequestLogin }
 

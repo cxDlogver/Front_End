@@ -10,7 +10,7 @@ const SECRET_KEY = '123456'
 
 // views 路由
 // 请求历史记录数据
-router.get('/histories',(req,res)=>{
+router.get('/histories',async (req,res)=>{
   const token = req.headers.authorization;
   if(!token){
     return res.status(401).send({code:401,msg:'未授权'})
@@ -20,7 +20,9 @@ router.get('/histories',(req,res)=>{
     console.log('解码后的 payload:', decoded);
 
       // 读取config.json文件
-    const config = require('../histories/conf.json')
+    const config = JSON.parse(await fs.readFile(path.join(__dirname,'../histories/conf.json'),'utf8'))
+
+    // console.log(config)
     let data = [];
     for(const item in config){
 
@@ -50,6 +52,9 @@ router.post('/write', async (req,res) => {
     try {
       config = JSON.parse(await fs.readFile(path.join(__dirname,'../histories/conf.json'),'utf8'));
     } catch(e){}
+    console.log(config)
+    console.log(username)
+    console.log(data)
     if(!config[username]){
       config[username] = [];
     }
